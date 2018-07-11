@@ -10,19 +10,14 @@ module AbrahamHelper
     end
 
     if tours
-      completed = AbrahamHistory.where(
-        creator_id: current_user.id,
-        controller_name: controller_name,
-        action_name: action_name
-      )
-      remaining = tours.keys - completed.map(&:tour_name)
 
-      if remaining.any?
-        # Generate the javascript snippet for the next remaining tour
-        render(partial: 'application/abraham',
-               locals: { tour_name: remaining.first,
-                         steps: tours[remaining.first]['steps'] })
-      end
+
+  
+      # Generate the javascript snippet for the next remaining tour
+      render(partial: 'application/abraham',
+             locals: { tour_name: remaining.first,
+                       steps: tours[remaining.first]['steps'] })
+      
     end
   end
 end
