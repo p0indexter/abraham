@@ -10,7 +10,12 @@ module AbrahamHelper
     end
 
     if tours
-
+      completed = AbrahamHistory.where(
+        creator_id: current_user.id,
+        controller_name: controller_name,
+        action_name: action_name
+      )
+      remaining = tours.keys
 
   
       # Generate the javascript snippet for the next remaining tour
