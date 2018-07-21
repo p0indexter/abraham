@@ -24,6 +24,12 @@
     Cookies.set('abraham-<%= controller_name %>-<%= action_name %>-<%= tour_name %>', 'later');
   });
 
+  <% if step.key?('attachTo') %>
+    tour.on("next", function() {
+      eval(<%= step['attachTo']['next'] %>);
+    });
+  <% end %>
+
   <% steps.each_with_index do |(key, step), index| %>
   tour.addStep('step-<%= key %>', {
     <% if step.key?('title') %>
