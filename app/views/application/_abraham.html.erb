@@ -54,7 +54,7 @@
 
      <% if step.key?('attachTo') %>
       function nextStep(){
-        eval(<%= step['attachTo']['next'] %>);
+        eval(<%= step['attachTo']['next'].html_safe %>);
         tour.next;
       }
     <% end %>
