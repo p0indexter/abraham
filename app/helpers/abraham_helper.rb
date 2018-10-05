@@ -4,6 +4,7 @@ module AbrahamHelper
     puts "AbrahamHelper"
     puts "controller_name: #{controller_name}"
     puts "action_name: #{action_name}"
+    puts "controller_path: #{controller_path}"
     puts "AbrahamHelper"
 
     # Do we have tours for this controller/action in the user's locale?
