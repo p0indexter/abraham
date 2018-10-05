@@ -1,24 +1,19 @@
 # frozen_string_literal: true
 module AbrahamHelper
   def abraham_tour
-    puts "AbrahamHelper"
-    puts "controller_name: #{controller_name}"
-    puts "action_name: #{action_name}"
-    puts "controller_path: #{controller_path}"
-    puts "AbrahamHelper"
 
     # Do we have tours for this controller/action in the user's locale?
-    tours = Rails.configuration.abraham.tours["#{controller_name}.#{action_name}.#{I18n.locale}"]
+    tours = Rails.configuration.abraham.tours["#{controller_path.gsub('/', '_')}.#{action_name}.#{I18n.locale}"]
 
     unless tours
       # How about the default locale?
-      tours = Rails.configuration.abraham.tours["#{controller_name}.#{action_name}.#{I18n.default_locale}"]
+      tours = Rails.configuration.abraham.tours["#{controller_path.gsub('/', '_')}.#{action_name}.#{I18n.default_locale}"]
     end
 
     if tours
       completed = AbrahamHistory.where(
         creator_id: current_user.id,
-        controller_name: controller_name,
+        controller_name: controller_path.gsub('/', '_'),
         action_name: action_name
       )
       remaining = tours.keys

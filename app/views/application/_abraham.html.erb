@@ -13,7 +13,7 @@
       dataType: "json",
       contentType: "application/json",
       data: JSON.stringify({
-        controller_name: '<%= controller_name %>',
+        controller_name: '<%= controller_path.gsub('/', '_') %>',
         action_name: '<%= action_name %>',
         tour_name: '<%= tour_name %>'
       })
@@ -21,7 +21,7 @@
   });
 
   tour.on("cancel", function() {
-    Cookies.set('abraham-<%= controller_name %>-<%= action_name %>-<%= tour_name %>', 'later');
+    Cookies.set('abraham-<%= controller_path.gsub('/', '_') %>-<%= action_name %>-<%= tour_name %>', 'later');
   });
 
   <% steps.each_with_index do |(key, step), index| %>
@@ -54,11 +54,11 @@
   <% end %>
 
 
-  <% @completed = AbrahamHistory.where(creator_id: current_user.id, controller_name: controller_name, action_name: action_name) %>
+  <% @completed = AbrahamHistory.where(creator_id: current_user.id, controller_name: controller_path.gsub('/', '_'), action_name: action_name) %>
 
   // Don't start the tour if the user dismissed it once this session
   <% unless @completed.any? %>
-    if (!Cookies.get('abraham-<%= controller_name %>-<%= action_name %>-<%= tour_name %>')) {
+    if (!Cookies.get('abraham-<%= controller_path.gsub('/', '_') %>-<%= action_name %>-<%= tour_name %>')) {
       tour.start();
     }
   <% end %> 
