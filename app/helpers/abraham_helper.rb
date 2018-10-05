@@ -2,11 +2,11 @@
 module AbrahamHelper
   def abraham_tour
     # Do we have tours for this controller/action in the user's locale?
-    tours = Rails.configuration.abraham.tours["#{request.env['PATH_INFO'].to_s.slice!(0).gsub("/", ".")}.#{action_name}.#{I18n.locale}"]
+    tours = Rails.configuration.abraham.tours["#{request.env['PATH_INFO'].to_s[1..-1].gsub("/", ".")}.#{action_name}.#{I18n.locale}"]
 
     unless tours
       # How about the default locale?
-      tours = Rails.configuration.abraham.tours["#{request.env['PATH_INFO'].to_s.slice!(0).gsub("/", ".")}.#{action_name}.#{I18n.default_locale}"]
+      tours = Rails.configuration.abraham.tours["#{request.env['PATH_INFO'].to_s[1..-1].gsub("/", ".")}.#{action_name}.#{I18n.default_locale}"]
     end
 
     if tours
